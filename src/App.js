@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { PIZZAS, getNextPizza } from "./pizzas";
 import "./main.css";
 
 function InputBox({ className, ...props }) {
@@ -33,8 +34,7 @@ function PizzaInput({ className, input, changeInputFunc, canRemove, removeFunc }
   return (
     <div className={className}>
       <div className="relative">
-        <img className="h-40 w-40" src="images/pepperoni.png" alt="Pepperoni pizza" />
-
+        <img className="h-40 w-40" src={input.image} alt="Pepperoni pizza" />
         <Button
           className="absolute top-0 left-0"
           color={canRemove ? "red" : "grey"}
@@ -45,7 +45,7 @@ function PizzaInput({ className, input, changeInputFunc, canRemove, removeFunc }
           -
         </Button>
       </div>
-      <input className="mt-2 text-center border rounded" value={input.name} onChange={changeInputValue("name")} />
+      <input className="mt-2 w-40 text-center border rounded" value={input.name} onChange={changeInputValue("name")} />
       <TextInput
         className="mt-1"
         labelClassName="w-20"
@@ -139,10 +139,7 @@ function Button({ className, children, color, ...props }) {
 }
 
 function App() {
-  const [inputs, setInputs] = useState([
-    { name: "Pepperoni", diameter: 32, pieces: 2, price: 1500 },
-    { name: "Salami ", diameter: 40, pieces: 1, price: 3000 },
-  ]);
+  const [inputs, setInputs] = useState(PIZZAS.slice(0, 2));
 
   const changeInput = (idx) => (input) => {
     const newInputs = [...inputs];
@@ -156,7 +153,7 @@ function App() {
     setInputs(newInputs);
   };
 
-  const addInput = () => setInputs([...inputs, inputs[inputs.length - 1]]);
+  const addInput = () => setInputs([...inputs, getNextPizza(inputs)]);
 
   const pizzaInputs = inputs.map((input, idx) => (
     <PizzaInput
