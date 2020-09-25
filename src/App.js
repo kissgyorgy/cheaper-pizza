@@ -40,7 +40,8 @@ function PizzaInput({ className, input }) {
 }
 
 function Results({ className, input }) {
-  const areaSquarePrice = (input.diameter / 2) ** 2 * Math.PI * input.pieces;
+  let areaSquarePrice = (input.diameter / 2) ** 2 * Math.PI * input.pieces;
+  areaSquarePrice = Math.round(areaSquarePrice * 10) / 10;
   const totalPrice = input.pieces * input.price;
 
   return (
