@@ -23,7 +23,7 @@ function TextInput({ className, inputClassName, value, label, labelClassName, di
   );
 }
 
-function PizzaInput({ className, input, changeInputFunc }) {
+function PizzaInput({ className, input, changeInputFunc, removeFunc }) {
   const changeInputValue = (property) => (e) => {
     const newInput = { ...input };
     newInput[property] = e.target.value;
@@ -32,7 +32,12 @@ function PizzaInput({ className, input, changeInputFunc }) {
 
   return (
     <div className={className}>
-      <img className="h-40 w-40" src="images/pepperoni.png" alt="Pepperoni pizza" />
+      <div className="relative">
+        <img className="h-40 w-40" src="images/pepperoni.png" alt="Pepperoni pizza" />
+        <Button className="absolute top-0 left-0 bg-red-400 hover:bg-red-700" onClick={removeFunc}>
+          -
+        </Button>
+      </div>
       <h2 className="text-center mt-3 text-lg">{input.name}</h2>
       <TextInput
         className="mt-1"
@@ -114,28 +119,61 @@ function findCheaperPizza(inputs) {
   return minName;
 }
 
+function Button({ className, children, ...props }) {
+  return (
+    <button
+      className={"shadow border font-bold py-1 px-3 rounded-full  text-white self-start " + className}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+
 function App() {
   const [inputs, setInputs] = useState([
     { name: "Pepperoni", diameter: 32, pieces: 2, price: 1500 },
     { name: "Salami ", diameter: 40, pieces: 1, price: 3000 },
   ]);
 
-  const changeInput = (ind) => (input) => {
+  const changeInput = (idx) => (input) => {
     const newInputs = [...inputs];
-    newInputs[ind] = input;
+    newInputs[idx] = input;
     setInputs(newInputs);
   };
 
+  const removeInput = (idx) => () => {
+    const newInputs = [...inputs];
+    newInputs.splice(idx, 1);
+    setInputs(newInputs);
+  };
+
+  const addInput = () => {};
+
   const pizzaInputs = inputs.map((input, idx) => (
-    <PizzaInput className="ml-12 mr-12" input={input} changeInputFunc={changeInput(idx)} />
+    <PizzaInput
+      key={idx}
+      className="ml-12 mr-12"
+      input={input}
+      changeInputFunc={changeInput(idx)}
+      removeFunc={removeInput(idx)}
+    />
   ));
-  const results = inputs.map((input) => <Results className="ml-12 mr-12" input={input} />);
+  const results = inputs.map((input, idx) => <Results key={idx} className="ml-12 mr-12" input={input} />);
   const cheaperPizzaName = findCheaperPizza(inputs);
 
   return (
     <div className="flex flex-col">
       <h1 className={"text-center text-3xl mt-20"}>Which pizza is cheaper?</h1>
-      <div className="flex mt-10 justify-center">{pizzaInputs}</div>
+      <div className="flex mt-10 justify-center">
+        {pizzaInputs}
+        <Button
+          className="bg-green-400 hover:bg-green-700"
+          onClick={() => setInputs([...inputs, inputs[inputs.length - 1]])}
+        >
+          +
+        </Button>
+      </div>
       <hr className="m-auto w-1/2 mt-4" />
       <div className="flex mt-2 justify-center">{results}</div>
       <p className="text-center mt-5 text-lg">
