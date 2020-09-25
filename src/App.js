@@ -34,7 +34,7 @@ function PizzaInput({ className, input, changeInputFunc, removeFunc }) {
     <div className={className}>
       <div className="relative">
         <img className="h-40 w-40" src="images/pepperoni.png" alt="Pepperoni pizza" />
-        <Button className="absolute top-0 left-0 bg-red-400 hover:bg-red-700" onClick={removeFunc}>
+        <Button className="absolute top-0 left-0" color="red" onClick={removeFunc}>
           -
         </Button>
       </div>
@@ -119,10 +119,11 @@ function findCheaperPizza(inputs) {
   return minName;
 }
 
-function Button({ className, children, ...props }) {
+function Button({ className, children, color, ...props }) {
+  const fullColor = ` bg-${color}-400 hover:bg-${color}-700`;
   return (
     <button
-      className={"shadow border font-bold py-1 px-3 rounded-full  text-white self-start " + className}
+      className={"shadow border font-bold py-1 px-3 rounded-full  text-white self-start " + className + fullColor}
       {...props}
     >
       {children}
@@ -148,7 +149,7 @@ function App() {
     setInputs(newInputs);
   };
 
-  const addInput = () => {};
+  const addInput = () => setInputs([...inputs, inputs[inputs.length - 1]]);
 
   const pizzaInputs = inputs.map((input, idx) => (
     <PizzaInput
@@ -167,10 +168,7 @@ function App() {
       <h1 className={"text-center text-3xl mt-20"}>Which pizza is cheaper?</h1>
       <div className="flex mt-10 justify-center">
         {pizzaInputs}
-        <Button
-          className="bg-green-400 hover:bg-green-700"
-          onClick={() => setInputs([...inputs, inputs[inputs.length - 1]])}
-        >
+        <Button color="green" onClick={addInput}>
           +
         </Button>
       </div>
