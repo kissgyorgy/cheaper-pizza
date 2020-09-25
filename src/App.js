@@ -37,7 +37,7 @@ function PizzaInput({ className, input, changeInputFunc, canRemove, removeFunc }
         <img className="h-40 w-40" src={input.image} alt="Pepperoni pizza" />
         <Button
           className="absolute top-0 left-0"
-          color={canRemove ? "red" : "grey"}
+          color={canRemove ? "red" : "gray"}
           onClick={removeFunc}
           disabled={!canRemove}
           tabIndex="-1"
@@ -127,7 +127,11 @@ function findCheaperPizza(inputs) {
 }
 
 function Button({ className, children, color, ...props }) {
+  /* this is needed for Tailwind to find these CSS classes and not purge them:
+  bg-red-400 hover:bg-red-700 bg-green-400 hover:bg-green-700 bg-gray-400 hover:bg-gray-700
+  */
   const fullColor = ` bg-${color}-400 hover:bg-${color}-700`;
+
   return (
     <button
       className={"shadow border font-bold py-1 px-3 rounded-full  text-white self-start " + className + fullColor}
