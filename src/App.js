@@ -23,7 +23,7 @@ function TextInput({ className, inputClassName, value, label, labelClassName, di
   );
 }
 
-function PizzaInput({ className, input, changeInputFunc, removeFunc }) {
+function PizzaInput({ className, input, changeInputFunc, canRemove, removeFunc }) {
   const changeInputValue = (property) => (e) => {
     const newInput = { ...input };
     newInput[property] = e.target.value;
@@ -34,7 +34,14 @@ function PizzaInput({ className, input, changeInputFunc, removeFunc }) {
     <div className={className}>
       <div className="relative">
         <img className="h-40 w-40" src="images/pepperoni.png" alt="Pepperoni pizza" />
-        <Button className="absolute top-0 left-0" color="red" onClick={removeFunc} tabIndex="-1">
+
+        <Button
+          className="absolute top-0 left-0"
+          color={canRemove ? "red" : "grey"}
+          onClick={removeFunc}
+          disabled={!canRemove}
+          tabIndex="-1"
+        >
           -
         </Button>
       </div>
@@ -157,6 +164,7 @@ function App() {
       className="ml-12 mr-12"
       input={input}
       changeInputFunc={changeInput(idx)}
+      canRemove={inputs.length > 1}
       removeFunc={removeInput(idx)}
     />
   ));
