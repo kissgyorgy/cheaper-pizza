@@ -34,7 +34,7 @@ function PizzaInput({ className, input, changeInputFunc, removeFunc }) {
     <div className={className}>
       <div className="relative">
         <img className="h-40 w-40" src="images/pepperoni.png" alt="Pepperoni pizza" />
-        <Button className="absolute top-0 left-0" color="red" onClick={removeFunc}>
+        <Button className="absolute top-0 left-0" color="red" onClick={removeFunc} tabIndex="-1">
           -
         </Button>
       </div>
@@ -168,7 +168,7 @@ function App() {
       <h1 className={"text-center text-3xl mt-20"}>Which pizza is cheaper?</h1>
       <div className="flex mt-10 justify-center">
         {pizzaInputs}
-        <Button color="green" onClick={addInput}>
+        <Button color="green" onClick={addInput} tabIndex="-1">
           +
         </Button>
       </div>
