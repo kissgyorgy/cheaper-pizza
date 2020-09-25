@@ -1,27 +1,30 @@
 import React, { useState } from "react";
 import "./main.css";
 
-function InputBox({ example, ...props }) {
+function InputBox({ className, ...props }) {
   return (
     <input
-      className="ml-2 w-16 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-right"
+      className={
+        "ml-2 w-16 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-right " +
+        className
+      }
       type="text"
       {...props}
     />
   );
 }
 
-function TextInput({ className, value, label, labelClassName, disabled }) {
+function TextInput({ className, inputClassName, value, label, labelClassName, disabled }) {
   return (
     <div className={className}>
-      <label className={"text-gray-700 font-bold mb-2 " + labelClassName}>{label}:</label>
-      <InputBox value={value} disabled={disabled} />
+      <label className={"text-gray-700 inline-block font-bold mb-2 " + labelClassName}>{label}:</label>
+      <InputBox className={inputClassName} value={value} disabled={disabled} />
     </div>
   );
 }
 
-function PizzaTextInput({ label, value }) {
-  return <TextInput className="mt-2" value={value} label={label} labelClassName="inline-block w-20" />;
+function PizzaTextInput(props) {
+  return <TextInput className="mt-2" labelClassName="w-20" {...props} />;
 }
 
 function PizzaInput({ className, input }) {
@@ -42,8 +45,15 @@ function Results({ className, input }) {
 
   return (
     <div className={className}>
-      <TextInput value={areaSquarePrice} className="" label="Price / area²" labelClassName="inline-block" disabled />
-      <TextInput value={totalPrice} className="mt-2" label="Total prize" labelClassName="inline-block w-24" disabled />
+      <TextInput value={areaSquarePrice} inputClassName="w-24" label="Price / area²" disabled />
+      <TextInput
+        value={totalPrice}
+        className="mt-2"
+        inputClassName="w-24"
+        label="Total prize"
+        labelClassName="w-24"
+        disabled
+      />
     </div>
   );
 }
