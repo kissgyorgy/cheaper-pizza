@@ -38,7 +38,7 @@ function PizzaInput({ className, input, changeInputFunc, removeFunc }) {
           -
         </Button>
       </div>
-      <h2 className="text-center mt-3 text-lg">{input.name}</h2>
+      <input className="mt-2 text-center border rounded" value={input.name} onChange={changeInputValue("name")} />
       <TextInput
         className="mt-1"
         labelClassName="w-20"
