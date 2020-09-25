@@ -126,20 +126,18 @@ function App() {
     setInputs(newInputs);
   };
 
+  const pizzaInputs = inputs.map((input, idx) => (
+    <PizzaInput className="ml-12 mr-12" input={input} changeInputFunc={changeInput(idx)} />
+  ));
+  const results = inputs.map((input) => <Results className="ml-12 mr-12" input={input} />);
   const cheaperPizzaName = findCheaperPizza(inputs);
 
   return (
     <div className="flex flex-col">
       <h1 className={"text-center text-3xl mt-20"}>Which pizza is cheaper?</h1>
-      <div className="flex mt-10 justify-center">
-        <PizzaInput input={inputs[0]} changeInputFunc={changeInput(0)} />
-        <PizzaInput className="ml-24" input={inputs[1]} changeInputFunc={changeInput(1)} />
-      </div>
+      <div className="flex mt-10 justify-center">{pizzaInputs}</div>
       <hr className="m-auto w-1/2 mt-4" />
-      <div className="flex mt-2 justify-center">
-        <Results input={inputs[0]} />
-        <Results className="ml-24" input={inputs[1]} />
-      </div>
+      <div className="flex mt-2 justify-center">{results}</div>
       <p className="text-center mt-5 text-lg">
         The <span className="font-bold">{cheaperPizzaName}</span> pizza is cheaper by square area!
       </p>
