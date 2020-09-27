@@ -114,7 +114,7 @@ function Results({ className, input }) {
 
 function findCheaperPizza(inputs) {
   let minName = inputs[0].name;
-  let minAreaPrice = inputs[0].price;
+  let { areaPrice: minAreaPrice } = calcResults(inputs[0]);
 
   for (let i = 1; i < inputs.length; i++) {
     const { areaPrice } = calcResults(inputs[i]);
