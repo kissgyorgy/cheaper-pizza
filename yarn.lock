@@ -8949,14 +8949,10 @@ react-scripts@3.4.4:
   optionalDependencies:
     fsevents "2.1.2"
 
-react@^16.13.1:
-  version "16.14.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
-  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
+react@^19.0.0:
+  version "19.3.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-19.3.1.tgz#26e9523fc36ea06be5050ebb780249a133260ad7"
+  integrity sha512-QNhWdt7nrgVWWQG58QuGsAR3jv3Hbe4mb4vz7w2csnHavciZJgda1CPNaldF6eVxv90ud3jUXpKlHL69gO38yw==
 
 read-pkg-up@^2.0.0:
   version "2.0.0"
